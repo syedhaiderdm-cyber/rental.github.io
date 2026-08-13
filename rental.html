@@ -1,0 +1,448 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --pine:#1F3A2E;
+    --pine-dark:#152A21;
+    --stone:#EEE8DA;
+    --stone-deep:#E2DACA;
+    --brass:#B08D57;
+    --brass-light:#D9B98A;
+    --ink:#2B2B26;
+    --ink-soft:#6B6558;
+    --card:#FFFDF8;
+    --line:#DCD3BE;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  .rui{
+    font-family:'Work Sans', sans-serif;
+    background:var(--stone);
+    color:var(--ink);
+    min-height:100%;
+    padding-bottom:48px;
+  }
+  .rui h1,.rui h2,.rui h3,.rui .display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---- Header / hero ---- */
+  .rui-top{
+    background:linear-gradient(180deg, var(--pine) 0%, var(--pine-dark) 100%);
+    color:#F3EFE4;
+    padding:28px 24px 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .rui-eyebrow{
+    font-size:11px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--brass-light);
+    margin:0 0 6px;
+    font-weight:600;
+  }
+  .rui-top h1{
+    font-size:clamp(24px,4vw,34px);
+    margin:0 0 4px;
+    color:#FBF8F0;
+  }
+  .rui-sub{
+    margin:0 0 22px;
+    color:#C9C2AE;
+    font-size:14px;
+    max-width:520px;
+  }
+
+  /* mountain ridge signature motif */
+  .rui-ridge{
+    display:block;
+    width:100%;
+    height:46px;
+    margin-top:4px;
+  }
+  .rui-ridge path{ fill:var(--stone); }
+  .rui-ridge .ridge-line{ fill:none; stroke:var(--brass); stroke-width:1.5; opacity:0.55; }
+
+  /* ---- Search ---- */
+  .rui-search-wrap{
+    position:relative;
+    max-width:640px;
+    margin-bottom:22px;
+  }
+  .rui-search{
+    width:100%;
+    padding:14px 16px 14px 44px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.16);
+    background:rgba(255,255,255,0.08);
+    color:#FBF8F0;
+    font-family:'Work Sans',sans-serif;
+    font-size:15px;
+    outline:none;
+    transition:background .15s ease, border-color .15s ease;
+  }
+  .rui-search::placeholder{ color:#B8B19C; }
+  .rui-search:focus{
+    background:rgba(255,255,255,0.14);
+    border-color:var(--brass);
+  }
+  .rui-search-icon{
+    position:absolute;
+    left:14px;
+    top:50%;
+    transform:translateY(-50%);
+    width:18px;
+    height:18px;
+    opacity:0.7;
+  }
+  .rui-clear{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    background:none;
+    border:none;
+    color:#C9C2AE;
+    cursor:pointer;
+    font-size:13px;
+    padding:4px 8px;
+    display:none;
+    font-family:'Work Sans',sans-serif;
+  }
+  .rui-clear.show{ display:block; }
+
+  /* ---- Tabs ---- */
+  .rui-tabs-outer{
+    background:var(--stone);
+    position:sticky;
+    top:0;
+    z-index:5;
+    border-bottom:1px solid var(--line);
+  }
+  .rui-tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding:14px 24px;
+    scrollbar-width:thin;
+  }
+  .rui-tabs::-webkit-scrollbar{ height:6px; }
+  .rui-tabs::-webkit-scrollbar-thumb{ background:var(--line); border-radius:4px; }
+  .rui-tab{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    padding:9px 14px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--card);
+    color:var(--ink-soft);
+    font-size:13.5px;
+    font-weight:500;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:all .15s ease;
+  }
+  .rui-tab:hover{ border-color:var(--brass); color:var(--ink); }
+  .rui-tab.active{
+    background:var(--pine);
+    border-color:var(--pine);
+    color:#F3EFE4;
+  }
+  .rui-tab .count{
+    font-size:11px;
+    padding:1px 6px;
+    border-radius:999px;
+    background:rgba(0,0,0,0.08);
+    color:inherit;
+    opacity:0.75;
+  }
+  .rui-tab.active .count{ background:rgba(255,255,255,0.18); }
+
+  /* ---- Subcategory chips ---- */
+  .rui-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:16px 24px 0;
+  }
+  .rui-chip{
+    padding:6px 13px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--card);
+    font-size:12.5px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    font-weight:500;
+  }
+  .rui-chip:hover{ border-color:var(--brass); }
+  .rui-chip.active{
+    background:var(--brass);
+    border-color:var(--brass);
+    color:#2B2109;
+  }
+
+  /* ---- Results meta ---- */
+  .rui-meta{
+    padding:18px 24px 0;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .rui-meta b{ color:var(--ink); }
+
+  /* ---- Grid ---- */
+  .rui-results{ padding:16px 24px 0; }
+  .rui-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(190px,1fr));
+    gap:14px;
+  }
+  .rui-grid + .rui-section-label{ margin-top:10px; }
+  .rui-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow:hidden;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .rui-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(31,58,46,0.10);
+  }
+  .rui-card-swatch{
+    height:96px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .rui-card-swatch svg{ width:30px; height:30px; opacity:0.85; }
+  .rui-card-body{ padding:12px 13px 14px; }
+  .rui-card-cat{
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--brass);
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .rui-card-name{
+    font-size:13.5px;
+    font-weight:500;
+    line-height:1.3;
+    margin:0;
+    color:var(--ink);
+  }
+
+  /* ---- Empty state ---- */
+  .rui-empty{
+    padding:60px 24px;
+    text-align:center;
+    color:var(--ink-soft);
+  }
+  .rui-empty .display{ font-size:20px; color:var(--ink); margin-bottom:6px; }
+
+  /* ---- Section label for grouped (non-search) view ---- */
+  .rui-section-label{
+    padding:0 0 8px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    font-weight:600;
+  }
+
+  @media (max-width:560px){
+    .rui-top{ padding:20px 16px 0; }
+    .rui-tabs{ padding:12px 16px; }
+    .rui-chips{ padding:14px 16px 0; }
+    .rui-meta{ padding:14px 16px 0; }
+    .rui-grid{ padding:14px 16px 0; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:10px; }
+  }
+</style>
+
+<div class="rui">
+  <div class="rui-top">
+    <p class="rui-eyebrow">Desert Southwest Event Rentals</p>
+    <h1>Browse Rentals</h1>
+    <p class="rui-sub">Every category, one place to search — built on the existing product taxonomy, no new categorization needed.</p>
+
+    <div class="rui-search-wrap">
+      <svg class="rui-search-icon" viewBox="0 0 24 24" fill="none" stroke="#F3EFE4" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input class="rui-search" id="ruiSearch" type="text" placeholder="Search tables, chairs, arches, glassware…" autocomplete="off">
+      <button class="rui-clear" id="ruiClear">Clear</button>
+    </div>
+
+    <svg class="rui-ridge" viewBox="0 0 400 46" preserveAspectRatio="none">
+      <path class="ridge-line" d="M0 40 L45 16 L80 30 L120 8 L165 26 L210 4 L255 24 L300 12 L345 28 L400 14" />
+      <path d="M0 46 L0 40 L45 16 L80 30 L120 8 L165 26 L210 4 L255 24 L300 12 L345 28 L400 14 L400 46 Z" />
+    </svg>
+  </div>
+
+  <div class="rui-tabs-outer">
+    <div class="rui-tabs" id="ruiTabs"></div>
+  </div>
+
+  <div id="ruiChips" class="rui-chips"></div>
+  <div id="ruiMeta" class="rui-meta"></div>
+  <div id="ruiResults" class="rui-results"></div>
+  <div id="ruiEmpty" class="rui-empty" style="display:none;">
+    <div class="display">No matches</div>
+    <div>Try a different term, or browse by category above.</div>
+  </div>
+</div>
+
+<script>
+const RENTALS_DATA = [{"name": "Tents & Canopies", "flat": false, "total": 14, "subcategories": [{"name": "Party & Event Tents", "products": ["Tidewater Sailcloth Tent", "Large Peak Top Tents", "Large Clear Top Tents", "Commercial Pop-Up Top 10x30", "Commercial Pop-Up Top 10x10", "Gable Marquee Tent 20x40"], "count": 7}, {"name": "Tent Accessories", "products": ["Mirror Disco Balls", "Tent Drapery and Curtain", "Decorative Drapery", "Large LED Tent Light", "Small LED Tent Light", "28\" Crystal Chandelier"], "count": 7}]}, {"name": "Tables", "flat": false, "total": 20, "subcategories": [{"name": "Basic Tables", "products": ["60\" Round Tables", "Banquet Table", "8' Banquet Tables", "Half Round Tables", "Serpentine Tables", "Table Pad"], "count": 6}, {"name": "Wood Dining Tables", "products": ["Farmhouse Cake Table", "Farmhouse Sweetheart Table", "Lakota Sweetheart Table & Chair Set", "Farmhouse Dining Table", "Montecito Dining Table – Black", "Montecito Dining Table – Natural"], "count": 7}, {"name": "Cocktail Tables", "products": ["Farmhouse Cocktail Tables", "Wood Slice Cocktail Table", "Marble Top High Barback Table", "Cocktail Tables 42\" High", "Wine Barrel Cocktail Table", "Midtown Communal Table"], "count": 7}, {"name": "Elegant Dining Tables", "products": [], "count": 0}]}, {"name": "Chairs & Bar Stools", "flat": false, "total": 36, "subcategories": [{"name": "Bar Stools", "products": ["Swivel Seat Barstools", "Tractor Seat Barstools", "Industrial Swivel Barstool", "Cross Back Barstool – Weathered Oak", "Chiavari Barstool – White", "Chiavari Barstool – Black"], "count": 13}, {"name": "Chiavari Chairs", "products": ["Chiavari Pads", "Chiavari Chair – Fruitwood", "Chiavari Chair – White", "Chiavari Chair – Black", "Chiavari Chair – Mahogany"], "count": 5}, {"name": "Folding Chairs", "products": ["Natural Wood Folding Chair", "Wood Chair – Fruitwood", "Resin Folding Chair – White", "Resin Folding Chair – Black", "Samsonite Chair – White"], "count": 5}, {"name": "Specialty Chairs", "products": ["Brentwood Chair – Natural", "Brentwood Chair – Black", "Sophia Chair – Black", "Chelsea Chair White & Chrome", "Chelsea Chair Black & Chrome", "Clam Chair"], "count": 13}]}, {"name": "Dance Floor & Rugs", "flat": false, "total": 25, "subcategories": [{"name": "Dance Floor", "products": ["Dance Floor – Oak and White", "Dance Floor – Walnut", "Dance Floor – Black", "Dance Floor – Light Oak", "Dance Floor – Black and White", "Dance Floor – White"], "count": 6}, {"name": "Rugs", "products": ["Aisle Runner", "Round Flower Petal Jute Rug", "Persian Brick Rug", "Mystic Tangerine Rug", "Round Antique Gray Rug"], "count": 19}]}, {"name": "Linen", "flat": true, "total": 25, "subcategories": [{"name": "Linen", "products": ["Beaded Pearl & Rhinestone Napkin Rings", "Ivory Gauze Chair Sashes", "Dusty Blue Cheesecloth Table Runner", "Bone Suede Tablecloths", "Pearl and Gold Napkin Rings", "Sage Green Cheesecloth Napkins"], "count": 25}]}, {"name": "Furniture", "flat": false, "total": 116, "subcategories": [{"name": "Modern Lounge Collection", "products": ["Contempo Sofa – Cream", "Garland Armless Upholstered Chair", "Black Vinyl Bench", "White Vinyl Bench", "Black Vinyl Ottoman", "White Vinyl Ottoman"], "count": 7}, {"name": "Luxe & Retro Collection", "products": ["Kennedy Nailhead Armchair", "White Teddy Desi Sofa", "Black Velvet Delancey Sofa and Sidechair", "Bohemian Rhapsody Purple Sofa", "Smokey Grey Chesterfield Sofa", "Belmont Black Velvet Side Chair"], "count": 25}, {"name": "Vintage Collection", "products": ["Brown Leather Chesterfield Sofa", "Brown Leather Chesterfield Sofa and Wingback Chairs", "Vintage Velvet Wingback Chairs", "Eliza Taupe Accent Chair", "Vintage Lounge Seating Set", "Madison Tufted Settee"], "count": 13}, {"name": "Rent the Look Inspiration", "products": ["Romantic Garden Theme", "Rustic Wedding Design", "Bohemian", "Classic/Traditional", "Modern/Art Deco Theme", "Modern Minimalist Design"], "count": 6}, {"name": "Posh Picnic Inspiration", "products": ["Macrame Look with Bali Umbrella", "Bohemian Vibes", "California Beach Vibe", "Bimini Inspired Posh Picnic", "Elegant Backyard Picnic", "Couples Only Retreat Picnic"], "count": 7}, {"name": "Coffee & End Tables", "products": ["Natural Pinewood Stump End Table", "Vintage Parquet-Top Coffee Table", "Hobbs Drum Nickel Coffee Table", "Hobbs Drum Copper Coffee Table", "Hammered Gold Coffee and End Table Set", "Copper Coffee and End Table Set"], "count": 19}, {"name": "Outdoor Furniture Collection", "products": ["Bond Teak Outdoor Sofa", "Bond Teak Outdoor Chair", "Portable Gas Grill", "Tan Market Umbrella and Base", "Black Market Umbrella and Base", "White Fringe Umbrella and Base"], "count": 13}, {"name": "Benches & Ottomans", "products": ["Farmhouse Table Benches", "Ivory Tufted Button Round Ottoman", "Ivory Boucle Brynnen Round Ottoman", "White Bean Bag Sofa", "Black Bean Bag Sofa", "Round Knit Pouf Ottoman"], "count": 19}, {"name": "Shelves/Backbars", "products": ["Blush Manhattan Backbar", "Champagne Manhattan Backbar", "Sage Manhattan Backbar", "White Manhattan Backbar", "Black Manhattan Backbar", "Rustic Wood Ladder Shelf"], "count": 7}]}, {"name": "Bars", "flat": true, "total": 19, "subcategories": [{"name": "Bars", "products": ["Circular or Moon Shape Bar", "Ketchikan Bar", "Allegheny Bar", "Charlotte Bar", "Ebony Midnight Bar", "Chiffon Tavern Bar"], "count": 19}]}, {"name": "Arches, Walls & Backdrops", "flat": false, "total": 45, "subcategories": [{"name": "Luxe Collection Arches", "products": ["Pampas Grass Arch Spray", "Dark Stain Single Pole Arch", "Peeled Pine Dual Pole Arch", "Single Pillar Oak Arch", "Full Circle Wire Arch", "Semi Circle Wire Arches"], "count": 13}, {"name": "Backdrops and Walls", "products": ["Custom Built Backdrops", "Lighted Globe Backdrop", "Rustic Wine Wall", "Champagne Wall", "Rustic Wood Backdrop Wall", "Boxwood Hedge"], "count": 7}, {"name": "Signage", "products": ["Rustic Wedding Event Timeline Sign", "Picture Collage Seating Chart Sign", "Lighted Wooden Picture Frame Decor", "Chalkboard Sign", "\"Blow Bubbles\" Sign", "\"Unplugged Ceremony\" Sign"], "count": 25}]}, {"name": "Decor", "flat": false, "total": 99, "subcategories": [{"name": "Candlelight & Holders", "products": ["Speckled Blue Votives", "4-Piece Closed Bottom Hurricane Set", "3-Piece Green Candle Holders", "3-Piece Bubble Candle Holders", "3-Piece Blue Candle Holders", "16\"x4\" Gold Speckled Chimney"], "count": 37}, {"name": "Centerpieces & Table Décor", "products": ["Frosted Gold Acrylic Table Numbers", "Frosted Rose Gold Table Numbers", "Metallic Pink Mason Jar Bud Vases", "Netted Centerpiece Jars", "Antique Wire Framed Mannequin", "Vintage Wire Frame Mannequin"], "count": 19}, {"name": "Mirror Signage", "products": ["Customizable White Frame Mirror Sign", "Customizable Gilded Edge Mirror", "Customizable Floor Length Wire Frame Mirror", "Customizable Easel Mirror Seating Chart", "Customizable Frame Floor Length Mirror Seating Chart", "Customizable Broadway Style Retro Mirror"], "count": 6}, {"name": "Accent Pieces & Pillows", "products": ["Decorative Floral Throw Pillows", "Brown Button Pocket Pillows", "Dania Handwoven and Plush Pouf Pillows", "Santa Fe Style Lumbar Pillows", "Steeple Top Lanterns", "Iron Top Rustic Lantern Set"], "count": 37}]}, {"name": "Specialty Items", "flat": false, "total": 7, "subcategories": [{"name": "Vintage & Antiques", "products": ["Rustic Vintage Chest Table", "Small Rustic Pine Wooden Crates", "Rustic Ladder Displays", "Dark Stained Wooden Crates", "Antique Milk Cans", "Antique Wood Crate"], "count": 7}]}, {"name": "Event Equipment", "flat": false, "total": 24, "subcategories": [{"name": "Lighting", "products": ["Rustic Pine Pole Lighting", "Mason Jar Fairy Light Pathway Lighting", "LED Balloons", "Tree Trunk Patio Lighting", "Outdoor Cafe Lighting", "Flameless Globe Lighting"], "count": 13}, {"name": "Pipe & Drape", "products": ["Pipe & Drape Set Framework", "Drape ONLY", "Convention Booth"], "count": 3}, {"name": "Sanitation", "products": ["15 Gallon Wash Tub", "Standard Trash Can", "Standard Trash Can – Black Fabric Cover", "Slim Jim Trash Can", "Slim Jim Trash Can – Black Fabric Cover"], "count": 5}, {"name": "Heating", "products": ["Pyramid Patio Heater", "Dome Patio Heater", "Propane Fire Pit"], "count": 3}]}, {"name": "Serveware", "flat": false, "total": 37, "subcategories": [{"name": "Dessert Displays", "products": ["Petrified Wood Serving Block", "Rustic Cake Stand With Glass Cover", "Oversize Natural Wood Rounds", "Wicker Baskets", "Wooden Cake Pedestal", "Various Rustic Height Dessert Display Boxes"], "count": 19}, {"name": "Barware", "products": ["3 Gallon Blush Upholstered Beverage Tub", "Hammered Stainless Steel Champagne Bucket", "Hammered Copper Ice Bucket", "Corrugated Metal Beverage Tubs", "Decorative Punch Bowl", "Acrylic Beverage Dispenser"], "count": 13}, {"name": "Coffeware", "products": ["1.5 Gallon Thermal Coffee Server", "Insulated Cream Carafe", "Coffee Server – Thermal 50oz", "Coffee Maker", "Coffee Cambro – 5 Gal"], "count": 5}]}, {"name": "Chinaware", "flat": false, "total": 28, "subcategories": [{"name": "China", "products": ["Charleston Indigo Collection", "Charcoal Charleston Collection", "Elsa Mint Collection", "Elsa Rose Collection", "Elsa Blue Collection", "Iris White Coupe Collection"], "count": 25}, {"name": "Specialty Pieces", "products": ["Sushi Plate", "Ramekins", "Athens Appetizer Plate"], "count": 3}]}, {"name": "Flatware", "flat": true, "total": 25, "subcategories": [{"name": "Flatware", "products": ["Milano Gold Flatware", "Muse Copper Brushed Flatware", "Piazza Brushed Gold", "Nico Brushed Black", "Stiletto Black Horn", "Lucca – Hammered Gold"], "count": 25}]}, {"name": "Glassware", "flat": false, "total": 56, "subcategories": [{"name": "All-Purpose & Stemless", "products": ["14 oz Wine Glass", "16 oz Water Goblet", "16 oz Red Wine Glass", "17 oz Stemless Wine/Water Glass", "9 oz Stemless Wine", "8.5 oz Stemless Flute"], "count": 19}, {"name": "Zwiesel Collection", "products": ["15 oz Pure Goblet", "23 oz Pure Bordeaux", "13.8 oz Pure Red", "10 oz Pure White", "7 oz Pure Flute", "13 oz Pure Whiskey"], "count": 6}, {"name": "Gold Rimmed Collection", "products": ["23.75 oz Chloe Clear – Red", "14.5 oz Chloe Clear – White", "8 oz Chloe Clear – Flute", "12.5 oz Chloe Clear – Coupe", "17.25 oz Chloe Clear Stemless", "13.5 oz Cristallo+Gold – Goblet"], "count": 19}, {"name": "Colored & Textured Glass", "products": ["Ruby Red Juliet Goblet", "Vintage Mason Jars – Teal Blue", "Plum Rose Juliet Goblet", "Clear Juliet Goblet", "Pink Juliet Goblet", "Teal Juliet Goblet"], "count": 7}, {"name": "Mugs", "products": ["Clear Glass Espresso Mugs", "White Ceramic Espresso Mug", "Copper Mug", "Moscow Mule Mug", "Irish Coffee Mug"], "count": 5}]}, {"name": "Chargers", "flat": true, "total": 43, "subcategories": [{"name": "Chargers", "products": ["Garland Taupe Coupe Charger", "Garland Mustard Yellow Coupe Charger", "Garland Dark Grey Coupe Charger", "Blue Botanicals Coupe Charger", "Archie Tahoe Blue Charger", "Amanda Grey Charger"], "count": 43}]}, {"name": "Food Equipment", "flat": false, "total": 6, "subcategories": [{"name": "Fun Food", "products": ["Sno-Kone Machine", "Popcorn Maker", "Popcorn Machine with Cart"], "count": 3}, {"name": "Chafers and Buffet Items", "products": ["Cold Food Chafing Dish", "Rustic Catering Buffet Boxes", "Chafer 8 qt"], "count": 3}]}, {"name": "Games", "flat": true, "total": 2, "subcategories": [{"name": "Games", "products": ["Corn Hole", "Giant Jenga Game"], "count": 2}]}, {"name": "Audio/Video", "flat": true, "total": 7, "subcategories": [{"name": "Audio/Video", "products": ["Mobile Television Stand", "PowerPoint Projector", "Bluetooth Karaoke System", "Standard Podium", "Projection Screens"], "count": 7}]}, {"name": "Wedding & Lounge Inspiration", "flat": true, "total": 7, "subcategories": [{"name": "Wedding & Lounge Inspiration", "products": ["Retro 70's Groove", "Sage Garden Sanctuary", "Green Gardens", "New York Modern", "Napa Vineyard Whimsy", "French Countryside Romance"], "count": 7}]}, {"name": "Miscellaneous Event", "flat": true, "total": 3, "subcategories": [{"name": "Miscellaneous Event", "products": ["6500-Watt Generator", "Garment Steamer", "Garment Rack"], "count": 3}]}];
+
+(function(){
+  const ICONS = {
+    "Tents & Canopies":"M4 20 L12 4 L20 20 Z M2 20 H22",
+    "Tables":"M3 8 H21 M6 8 V20 M18 8 V20",
+    "Chairs & Bar Stools":"M6 4 H16 V13 H6 Z M6 13 L5 20 M16 13 L17 20",
+    "Dance Floor & Rugs":"M3 3 H21 V21 H3 Z M3 9 H21 M3 15 H21 M9 3 V21 M15 3 V21",
+    "Linen":"M4 6 Q12 2 20 6 V18 Q12 22 4 18 Z",
+    "Furniture":"M4 12 H20 V19 H4 Z M4 19 V22 M20 19 V22 M6 12 V7 H18 V12",
+    "Bars":"M5 4 H19 L14 13 V20 H10 V13 Z",
+    "Arches, Walls & Backdrops":"M4 21 V10 A8 8 0 0 1 20 10 V21",
+    "Decor":"M12 3 L14 9 L20 9 L15 13 L17 19 L12 15 L7 19 L9 13 L4 9 L10 9 Z",
+    "Specialty Items":"M4 8 H20 V20 H4 Z M4 8 L12 3 L20 8",
+    "Event Equipment":"M12 3 V13 M6 8 L12 3 L18 8 M5 21 H19 M5 17 H19",
+    "Serveware":"M12 3 C7 3 4 6 4 10 C4 14 8 15 8 18 V21 H16 V18 C16 15 20 14 20 10 C20 6 17 3 12 3 Z",
+    "Chinaware":"M4 6 H20 V9 A8 8 0 0 1 4 9 Z M12 9 V19 M8 21 H16",
+    "Flatware":"M6 3 V13 M4 3 V9 A2 2 0 0 0 8 9 V3 M12 3 C10 6 10 10 12 13 V21 M18 3 V21 M18 3 C16 3 16 8 18 9",
+    "Glassware":"M8 3 H16 L14 14 A2 2 0 0 1 10 14 Z M12 14 V21 M8 21 H16",
+    "Chargers":"M12 4 A8 8 0 1 1 11.99 4 M12 8 A4 4 0 1 1 11.99 8",
+    "Food Equipment":"M4 10 H20 A8 5 0 0 1 4 10 Z M4 10 V15 A8 5 0 0 0 20 15 V10",
+    "Games":"M5 9 H19 V17 H5 Z M9 9 V5 H15 V9 M9 13 H9.01 M15 13 H15.01",
+    "Audio/Video":"M4 6 H20 V16 H4 Z M9 16 L8 21 H16 L15 16",
+    "Wedding & Lounge Inspiration":"M12 4 C9 4 7 6 7 9 C7 13 12 20 12 20 C12 20 17 13 17 9 C17 6 15 4 12 4 Z",
+    "Miscellaneous Event":"M12 3 V21 M3 12 H21"
+  };
+  const SWATCH_BG = ["#DCE7DE","#EAD9C5","#E3D6E6","#D9E3EA","#EDE2C9","#DDE0D2"];
+
+  const tabsEl = document.getElementById('ruiTabs');
+  const chipsEl = document.getElementById('ruiChips');
+  const resultsEl = document.getElementById('ruiResults');
+  const metaEl = document.getElementById('ruiMeta');
+  const emptyEl = document.getElementById('ruiEmpty');
+  const searchEl = document.getElementById('ruiSearch');
+  const clearBtn = document.getElementById('ruiClear');
+
+  let activeCat = RENTALS_DATA[0].name;
+  let activeSub = null; // null = all subcats of the active category
+
+  function iconFor(cat){
+    const d = ICONS[cat] || "M12 2 L22 12 L12 22 L2 12 Z";
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="#1F3A2E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="'+d+'"/></svg>';
+  }
+
+  function renderTabs(){
+    tabsEl.innerHTML = RENTALS_DATA.map(cat => {
+      const cls = 'rui-tab' + (cat.name===activeCat && !isSearching() ? ' active' : '');
+      return '<div class="'+cls+'" data-cat="'+encodeURIComponent(cat.name)+'">'+
+        cat.name+'<span class="count">'+cat.total+'+</span></div>';
+    }).join('');
+    Array.from(tabsEl.children).forEach(el=>{
+      el.addEventListener('click', ()=>{
+        searchEl.value='';
+        clearBtn.classList.remove('show');
+        activeCat = decodeURIComponent(el.getAttribute('data-cat'));
+        activeSub = null;
+        render();
+      });
+    });
+  }
+
+  function renderChips(){
+    const cat = RENTALS_DATA.find(c=>c.name===activeCat);
+    if(!cat || cat.flat || isSearching()){ chipsEl.innerHTML=''; return; }
+    chipsEl.innerHTML = ['<div class="rui-chip'+(activeSub===null?' active':'')+'" data-sub="">All '+cat.name+'</div>']
+      .concat(cat.subcategories.map(s=>{
+        const cls='rui-chip'+(activeSub===s.name?' active':'');
+        return '<div class="'+cls+'" data-sub="'+encodeURIComponent(s.name)+'">'+s.name+' <span style="opacity:.6">('+s.count+'+)</span></div>';
+      })).join('');
+    Array.from(chipsEl.children).forEach(el=>{
+      el.addEventListener('click', ()=>{
+        const v = el.getAttribute('data-sub');
+        activeSub = v ? decodeURIComponent(v) : null;
+        render();
+      });
+    });
+  }
+
+  function isSearching(){ return searchEl.value.trim().length>0; }
+
+  function cardHTML(catName, prodName, idx){
+    const bg = SWATCH_BG[idx % SWATCH_BG.length];
+    return '<div class="rui-card">'+
+      '<div class="rui-card-swatch" style="background:'+bg+'">'+iconFor(catName)+'</div>'+
+      '<div class="rui-card-body"><p class="rui-card-cat">'+catName+'</p><p class="rui-card-name">'+prodName+'</p></div>'+
+    '</div>';
+  }
+
+  function render(){
+    renderTabs();
+    if(isSearching()){
+      const q = searchEl.value.trim().toLowerCase();
+      chipsEl.innerHTML='';
+      let matches=[];
+      RENTALS_DATA.forEach(cat=>{
+        cat.subcategories.forEach(sub=>{
+          const subHit = sub.name.toLowerCase().includes(q) || cat.name.toLowerCase().includes(q);
+          sub.products.forEach(p=>{
+            if(subHit || p.toLowerCase().includes(q)){
+              matches.push({cat:cat.name, sub:sub.name, product:p});
+            }
+          });
+        });
+      });
+      metaEl.innerHTML = 'Showing <b>'+matches.length+'</b> result'+(matches.length===1?'':'s')+' for "<b>'+searchEl.value.trim()+'</b>" across all categories';
+      if(matches.length===0){
+        resultsEl.innerHTML=''; emptyEl.style.display='block';
+      } else {
+        emptyEl.style.display='none';
+        resultsEl.innerHTML = '<div class="rui-grid">'+matches.map((m,i)=>cardHTML(m.cat, m.product, i)).join('')+'</div>';
+      }
+      return;
+    }
+
+    renderChips();
+    const cat = RENTALS_DATA.find(c=>c.name===activeCat);
+    let subs = cat.subcategories;
+    if(activeSub) subs = subs.filter(s=>s.name===activeSub);
+
+    const totalShown = subs.reduce((a,s)=>a+s.products.length,0);
+    const totalConfirmed = subs.reduce((a,s)=>a+s.count,0);
+    metaEl.innerHTML = cat.flat
+      ? 'At least <b>'+cat.total+'</b> items in <b>'+cat.name+'</b>'
+      : (activeSub ? 'At least <b>'+totalConfirmed+'</b> items in <b>'+activeSub+'</b>'
+                   : 'At least <b>'+cat.total+'</b> items across <b>'+cat.subcategories.length+'</b> subcategories in <b>'+cat.name+'</b>');
+
+    emptyEl.style.display='none';
+    const showLabels = !cat.flat && !activeSub && subs.length > 1;
+    let html='';
+    subs.forEach(s=>{
+      if(showLabels) html += '<div class="rui-section-label">'+s.name+' <span style="opacity:.6">('+s.count+'+)</span></div>';
+      html += '<div class="rui-grid">'+s.products.map((p,i)=>cardHTML(cat.name,p,i)).join('')+'</div>';
+    });
+    resultsEl.innerHTML = html;
+  }
+
+  searchEl.addEventListener('input', ()=>{
+    clearBtn.classList.toggle('show', searchEl.value.length>0);
+    render();
+  });
+  clearBtn.addEventListener('click', ()=>{
+    searchEl.value=''; clearBtn.classList.remove('show'); render();
+  });
+
+  render();
+})();
+</script>
